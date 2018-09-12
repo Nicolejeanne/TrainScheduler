@@ -1,0 +1,57 @@
+body {
+    background-color: #D2D2D3;
+}
+.jumbotron {
+    background-image: url("../images/trains5.jpg");
+    background-repeat: no-repeat;
+    filter: grayscale(70%);
+    text-align: center;
+    background-size: 100%;
+    width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    
+    
+}
+.firstHeader {
+    font-weight: bolder;
+    font-size: 70px;
+    color: white;
+    text-shadow:
+		-2px -2px 0 #000,
+		2px -2px 0 #000,
+		-2px 2px 0 #000,
+		2px 2px 0 #000;
+}
+.secondHeader {
+    font-weight: 600;
+    color: black;
+    text-shadow:
+		-2px -2px 0 white,
+		2px -2px 0  white,
+		-2px 2px 0 white,
+		2px 2px 0  white;
+
+}
+.alert-secondary {
+    background-color: #D2D2D3;
+    border: #D2D2D3;
+    padding: .25rem;
+    margin: 1rem auto;
+    width: 60%;
+    font-weight: 500;
+}
+.card {
+    margin: 20px auto;
+}
+.card-header {
+    font-weight: 500;
+}
+.form-group {
+    margin: 10px;
+}
+.btn-primary {
+    background-color: black;
+    margin: 10px;
+    width: 150px;
+}
