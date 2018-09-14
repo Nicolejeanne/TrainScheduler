@@ -1,6 +1,7 @@
 body {
     background-color: #D2D2D3;
 }
+
 .jumbotron {
     background-image: url("../images/trains5.jpg");
     background-repeat: no-repeat;
@@ -13,6 +14,7 @@ body {
     
     
 }
+
 .firstHeader {
     font-weight: bolder;
     font-size: 70px;
@@ -23,6 +25,7 @@ body {
 		-2px 2px 0 #000,
 		2px 2px 0 #000;
 }
+
 .secondHeader {
     font-weight: 600;
     color: black;
@@ -33,6 +36,7 @@ body {
 		2px 2px 0  white;
 
 }
+
 .alert-secondary {
     background-color: #B4B9BF;
     border: #B4B9BF;
@@ -41,19 +45,31 @@ body {
     width: 60%;
     font-weight: 500;
 }
+
 .card {
     margin: 20px auto;
 }
+
 .card-header {
     font-weight: 700;
     background-color: #BF5700;
 }
+
 .form-group {
     margin: 10px;
 }
+
 .btn-primary {
     background-color: black;
     margin: 10px;
     width: 150px;
     border: black;
+}
+
+.list-group-flush {
+    margin: 0px auto;
+}
+
+.list-group-item {
+    padding: 7px;
 }
