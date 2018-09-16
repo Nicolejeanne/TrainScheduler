@@ -17,6 +17,8 @@
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
     <!-- Firebase -->
     <script src="https://www.gstatic.com/firebasejs/5.5.0/firebase.js"></script>
+     <!-- Added Moment JS -->
+  <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
 </head>
 <body>
     <!-- Jumbotron header -->
@@ -33,51 +35,19 @@
     <div class="card" style="width: 1200px;">
             <div class="card-header">Current Train Schedule
             </div>
-            <div class= "container">
-                    <div class= "row">
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item">Train Name</li>
-                <li class="list-group-item showTrainName"></li>
-                <li class="list-group-item"></li>
-                <li class="list-group-item"></li>
-                <li class="list-group-item"></li>
-                  </ul>
-
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">Destination</li>
-                    <li class="list-group-item showDestination"></li>
-                    <li class="list-group-item"></li>
-                    <li class="list-group-item"></li>
-                    <li class="list-group-item"></li>
-                      </ul>
-                  
-                      <ul class="list-group list-group-flush">
-                        <li class="list-group-item">Frequency (min)</li>
-                        <li class="list-group-item showFrequency"></li>
-                        <li class="list-group-item"></li>
-                        <li class="list-group-item"></li>
-                        <li class="list-group-item"></li>
-                          </ul>
-
-                          <ul class="list-group list-group-flush">
-                            <li class="list-group-item">Next Arrival</li>
-                            <li class="list-group-item showNextArrival"></li>
-                            <li class="list-group-item"></li>
-                            <li class="list-group-item"></li>
-                            <li class="list-group-item"></li>
-                              </ul>
-
-                              <ul class="list-group list-group-flush">
-                                <li class="list-group-item">Minutes Away</li>
-                                <li class="list-group-item showMinutesAway"></li>
-                                <li class="list-group-item"></li>
-                                <li class="list-group-item"></li>
-                                <li class="list-group-item"></li>
-                                  </ul>
-                
-                </div>
-                </div>
-        
+            <table class="table table-sm table-responsive{-sm|-md|-lg|-xl}">
+                <thead>
+                  <tr>
+                    <th scope="col">Train Name</th>
+                    <th scope="col">Destination</th>
+                    <th scope="col">Frequency</th>
+                    <th scope="col">Next Arrival</th>
+                    <th scope="col">Minutes Away</th>
+                  </tr>
+                </thead>
+                <tbody>
+                </tbody>
+              </table>
                 </div>
 
     <!-- Form -->

@@ -18,13 +18,15 @@ var config = {
 
 // Initial Values
 let trainName = "";
-let traindestination = "";
+let trainDestination = "";
 let trainFrequency = 0;
-let nextArrival = 0;
-let minutesAway = 0;
-let firstTrainTime = 0;
-// How do I reference current time...seems like it should be simple
-let currentTime = 0;
+let nextArrival;
+let minutesAway;
+let firstTrainTime;
+let currentTime;
+let firstTimeConverted;
+let diffTime;
+let tRemainder;
 
 // Capture Button Click
 $(".btn-primary").on("click", function(event) {
@@ -33,40 +35,79 @@ $(".btn-primary").on("click", function(event) {
 
 // Getting the input data
 trainName = $(".trainName").val().trim();
-traindestination = $(".destination").val().trim();
-firstTrainTime = parseInt($(".firstTrainTime").val().trim());
+trainDestination = $(".destination").val().trim();
+firstTrainTime = moment($(".firstTrainTime").val().trim(), "HH:mm").format();
 trainFrequency = parseInt($(".trainFrequency").val().trim());
 
-// I dont know what this does
-database.ref().set({
-    trainName: trainName,
-    traindestination: traindestination,
-    trainFrequency: trainFrequency,
-    // nextArrival: 
-    // minutesAway:
+// Creates last two calculated variables
+    // First Time (pushed back 1 year to make sure it comes before current time)
+    firstTimeConverted = moment(firstTrainTime, "HH:mm").subtract(1, "years");
+    console.log(firstTimeConverted);
+    // Current Time
+    currentTime = moment();
+    console.log("CURRENT TIME: " + moment(currentTime).format("hh:mm"));
+    // Difference between the times
+    diffTime = moment().diff(moment(firstTimeConverted), "minutes");
+    console.log("DIFFERENCE IN TIME: " + diffTime);
+    // Time apart (remainder)
+    tRemainder = diffTime % trainFrequency;
+    console.log(tRemainder);
+    // Minute Until Train
+    minutesAway = trainFrequency - tRemainder;
+    console.log("MINUTES TILL TRAIN: " + minutesAway);
+    // Next Train
+    nextArrival = moment().add(minutesAway, "minutes");
+    console.log("ARRIVAL TIME: " + moment(nextArrival).format("hh:mm"));
 
+// Creates local "temporary" object for holding employee data
+let newTrain = {
+    trainName: trainName,
+    trainDestination: trainDestination,
+    trainFrequency: trainFrequency,
+    firstTrainTime: firstTrainTime,
+};
+
+// Uploads train data to the database
+    database.ref().push(newTrain);
+
+// Clears all of the text boxes
+$(".trainName").val("");
+$(".destination").val("");
+$(".firstTrainTime").val("");
+$(".trainFrequency").val("");
 });
-});
+
 
 // At the initial load and subsequent value changes, get a snapshot of the stored data.
 // This function allows you to update your page in real-time when the firebase database changes.
-database.ref().on("value", function(snapshot) {
+database.ref().on("child_added", function(snapshot) {
 
 // Log everything that's coming out of snapshot
       console.log(snapshot.val());
       console.log(snapshot.val().trainName);
-      console.log(snapshot.val().traindestination);
+      console.log(snapshot.val().trainDestination);
       console.log(snapshot.val().trainFrequency);
       console.log(snapshot.val().firstTrainTime);
-      console.log(snapshot.val().nextArrival);
-      console.log(snapshot.val().minutesAway);
+    //   console.log(snapshot.val().nextArrival);
+    //   console.log(snapshot.val().minutesAway);
 
-// Change the HTML to reflect
-$(".showTrainName").text(snapshot.val().trainName);
-$(".showDestination").text(snapshot.val().traindestination);
-$(".showFrequency").text(snapshot.val().trainFrequency);
-$(".showNextArrival").text(snapshot.val().nextArrival);
-$(".showMinutesAway").text(snapshot.val().minutesAway);
+// Store new values in variables
+let newTrainName = snapshot.val().trainName;
+let newTrainDestination = snapshot.val().trainDestination;
+let newFrequency = snapshot.val().trainFrequency;
+
+// Create new table row
+let newRow = $("<tr>").append(
+    $("<td>").text(newTrainName),
+    $("<td>").text(newTrainDestination),
+    $("<td>").text(newFrequency),
+    $("<td>").text(nextArrival),
+    $("<td>").text(minutesAway),
+);
+
+// Append the new row to the table
+$(".table > tbody").append(newRow);
+
 
 // Handle the errors
 }, function(errorObject) {
