@@ -108,7 +108,6 @@ let newRow = $("<tr>").append(
 // Append the new row to the table
 $(".table > tbody").append(newRow);
 
-
 // Handle the errors
 }, function(errorObject) {
 console.log("Errors handled: " + errorObject.code);
