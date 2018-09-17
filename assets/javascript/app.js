@@ -28,17 +28,6 @@ let firstTimeConverted;
 let diffTime;
 let tRemainder;
 
-// Capture Button Click
-$(".btn-primary").on("click", function(event) {
-    // Don't refresh the page!
-    event.preventDefault();
-
-// Getting the input data
-trainName = $(".trainName").val().trim();
-trainDestination = $(".destination").val().trim();
-firstTrainTime = moment($(".firstTrainTime").val().trim(), "HH:mm").format();
-trainFrequency = parseInt($(".trainFrequency").val().trim());
-
 // Creates last two calculated variables
     // First Time (pushed back 1 year to make sure it comes before current time)
     firstTimeConverted = moment(firstTrainTime, "HH:mm").subtract(1, "years");
@@ -58,6 +47,19 @@ trainFrequency = parseInt($(".trainFrequency").val().trim());
     // Next Train
     nextArrival = moment().add(minutesAway, "minutes");
     console.log("ARRIVAL TIME: " + moment(nextArrival).format("hh:mm"));
+    
+// Capture Button Click
+$(".btn-primary").on("click", function(event) {
+    // Don't refresh the page!
+    event.preventDefault();
+
+// Getting the input data
+trainName = $(".trainName").val().trim();
+trainDestination = $(".destination").val().trim();
+firstTrainTime = moment($(".firstTrainTime").val().trim(), "HH:mm").format();
+trainFrequency = parseInt($(".trainFrequency").val().trim());
+
+
 
 // Creates local "temporary" object for holding employee data
 let newTrain = {
@@ -65,10 +67,12 @@ let newTrain = {
     trainDestination: trainDestination,
     trainFrequency: trainFrequency,
     firstTrainTime: firstTrainTime,
+    // nextArrival: nextArrival,
+    // minutesAway: minutesAway
 };
 
 // Uploads train data to the database
-    database.ref().push(newTrain);
+    database.ref('trains/').push(newTrain);
 
 // Clears all of the text boxes
 $(".trainName").val("");
@@ -80,7 +84,7 @@ $(".trainFrequency").val("");
 
 // At the initial load and subsequent value changes, get a snapshot of the stored data.
 // This function allows you to update your page in real-time when the firebase database changes.
-database.ref().on("child_added", function(snapshot) {
+database.ref('trains/').on("child_added", function(snapshot) {
 
 // Log everything that's coming out of snapshot
       console.log(snapshot.val());
@@ -88,8 +92,10 @@ database.ref().on("child_added", function(snapshot) {
       console.log(snapshot.val().trainDestination);
       console.log(snapshot.val().trainFrequency);
       console.log(snapshot.val().firstTrainTime);
-    //   console.log(snapshot.val().nextArrival);
-    //   console.log(snapshot.val().minutesAway);
+    console.log(snapshot.val().nextArrival);
+    console.log(snapshot.val().minutesAway);
+
+    
 
 // Store new values in variables
 let newTrainName = snapshot.val().trainName;
